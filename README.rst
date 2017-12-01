@@ -14,16 +14,14 @@ Example usage
 
   scraper = KoladaScraper()
 
-  dataset = scraper.items['N00018']
+  dataset = scraper.items["N00002"] # pass a KPI id
 
-  # Return a ValueList with all municipalities
-  towns = dataset.dimensions['municipality'].allowed_values
+  towns = [x.value for x in dataset.dimensions['municipality'].allowed_values]
 
-  for town in towns:
-      data = dataset.fetch({
-          'municipality': town.value,
-          'period': [2016, 2015]
-      })
+  data = dataset.fetch({
+    'municipality': towns,
+    'period': [2016, 2015]
+  })
 
   print(data.pandas)
 

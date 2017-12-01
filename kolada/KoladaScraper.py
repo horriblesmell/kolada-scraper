@@ -30,9 +30,10 @@ class KoladaScraper(BaseScraper):
         if dimension.dataset.blob['municipality_type'] is 'K':
             data = requests.get(self.base_url + '/municipality').json()
             towns = [row['id'] for row in data['values']]
-            yield DimensionValue(towns,
-                                dimension,
-                                label='Swedish municipalities')
+            for town in towns:
+                yield DimensionValue(town,
+                                    dimension,
+                                    label='Swedish municipalities')
 
     def _fetch_data(self, dataset, query=None):
         """Yield rows from <dataset>."""
