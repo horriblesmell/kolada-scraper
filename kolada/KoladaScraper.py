@@ -71,7 +71,7 @@ class KoladaScraper(BaseScraper):
     def chunkify(self, q, k):
         res = []
         for i in np.array_split(q[k], math.ceil(len(q[k]) / 5)):
-            q_ = q.deepcopy()
+            q_ = deepcopy(q)
             q_[k] = list(i)
             res.append(q_)
         return res
