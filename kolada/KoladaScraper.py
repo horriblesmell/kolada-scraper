@@ -1,5 +1,6 @@
 # encoding: utf-8
 import math
+from copy import deepcopy
 
 from statscraper import BaseScraper, Dataset, Dimension, Result, DimensionValue
 import numpy as np
@@ -70,7 +71,7 @@ class KoladaScraper(BaseScraper):
     def chunkify(self, q, k):
         res = []
         for i in np.array_split(q[k], math.ceil(len(q[k]) / 5)):
-            q_ = {**q}
+            q_ = q.deepcopy()
             q_[k] = list(i)
             res.append(q_)
         return res
