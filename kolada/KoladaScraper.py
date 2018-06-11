@@ -27,7 +27,7 @@ class KoladaScraper(BaseScraper):
 
     def _fetch_allowed_values(self, dimension):
         """Yield the allowed values for <dimension>."""
-        if dimension.dataset.blob['municipality_type'] is 'K':
+        if dimension.dataset.blob['municipality_type'] == 'K':
             data = requests.get(self.base_url + '/municipality').json()
             towns = [row['id'] for row in data['values']]
             for town in towns:
