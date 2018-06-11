@@ -29,11 +29,11 @@ class KoladaScraper(BaseScraper):
         """Yield the allowed values for <dimension>."""
         if dimension.dataset.blob['municipality_type'] == 'K':
             data = requests.get(self.base_url + '/municipality').json()
-            towns = [row['id'] for row in data['values']]
-            for town in towns:
-                yield DimensionValue(town,
+            towns = [(row['id'], row['title']) for row in data['values']]
+            for town_id, town_name in towns:
+                yield DimensionValue(town_id,
                                     dimension,
-                                    label='Swedish municipalities')
+                                    label=town_name)
 
     def _fetch_data(self, dataset, query=None):
         """Yield rows from <dataset>."""
