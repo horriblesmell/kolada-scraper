@@ -16,13 +16,24 @@ Example usage
 
   dataset = scraper.items["N00002"] # pass a KPI id
 
-  towns = [x.value for x in dataset.dimensions['municipality'].allowed_values]
-
+  # Query by year
   data = dataset.fetch({
-    'municipality': towns,
-    'period': [2016, 2015]
+    'period': [2016, 2015],
   })
 
+  # ...or by municipality
+  towns = [x.value for x in dataset.dimensions['municipality'].allowed_values]
+  data = dataset.fetch({
+    'municipality': towns[:5],
+  })
+
+  # ... or by both
+  data = dataset.fetch({
+    'period': [2016, 2015],
+    'municipality': towns[:5],
+  })
+
+  # And then do something with the results.
   print(data.pandas)
 
 TODO
